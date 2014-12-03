@@ -1,0 +1,3 @@
+- Declare/describe at high level what transcription system is being used (it’s obviously not Arabic);
+
+- 
