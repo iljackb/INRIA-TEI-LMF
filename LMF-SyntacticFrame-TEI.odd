@@ -1,0 +1,40 @@
+<?xml-model href="LMFSyntax.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:svg="http://www.w3.org/2000/svg" xmlns:lmf="http://www.iso.org/ns/LMF" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Title</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Publication Information</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>Information about the source</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <body>
+      <div>
+        <entry>
+          <sense>
+            <gloss xml:lang="jp">ふぶく</gloss>
+            <lmf:syntacticBehaviour>
+              <lmf:subcategorizationFrame>
+                <lmf:syntacticArgument>
+                  <lmf:syntacticFunction>N1</lmf:syntacticFunction>
+                  <colloc type="particle">이/가</colloc>
+                  <gloss>눈보라</gloss>
+                  <ref type="wordnet">
+                    <idno>12231214</idno>
+                    <gloss>눈</gloss>
+                  </ref>
+                </lmf:syntacticArgument>
+              </lmf:subcategorizationFrame>
+            </lmf:syntacticBehaviour>
+          </sense>
+        </entry>
+      </div>
+    </body>
+  </text>
+</TEI>

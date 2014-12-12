@@ -1,0 +1,107 @@
+<?xml-model href="tei_odds.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="en">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>LMF Syntax packgae for the TEI guidelines</title>
+        <author>
+          <persName>
+            <forename>Laurent</forename>
+            <surname>Romary</surname>
+          </persName>
+        </author>
+      </titleStmt>
+      <publicationStmt>
+        <p>for use by whoever wants it</p>
+      </publicationStmt>
+      <sourceDesc>
+        <p>created on Wednesday 09th January 2013 08:36:16 AM</p>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <divGen type="toc"/>
+    </front>
+    <body>
+      <div>
+        <p>
+          My TEI Customization starts with modules tei, core, textstructure and header
+        </p>
+        <schemaSpec ident="LMFSyntax">
+          <moduleRef key="core"/>
+          <moduleRef key="tei"/>
+          <moduleRef key="header"/>
+          <moduleRef key="textstructure"/>
+          <moduleRef key="dictionaries"/>
+          <elementSpec ident="syntacticBehaviour" ns="http://www.iso.org/ns/LMF">
+            <classes>
+              <memberOf key="model.entryPart.top"/>
+            </classes>
+            <content>
+              <rng:zeroOrMore>
+                <rng:ref name="model.syntacticBehaviourPart"/>
+              </rng:zeroOrMore>
+            </content>
+          </elementSpec>
+          <elementSpec ident="subcategorizationFrame" ns="http://www.iso.org/ns/LMF">
+            <classes>
+              <memberOf key="model.syntacticBehaviourPart"/>
+            </classes>
+            <content>
+              <rng:zeroOrMore>
+                <rng:ref name="model.subcategorizationFramePart"/>
+              </rng:zeroOrMore>
+            </content>
+          </elementSpec>
+          <elementSpec ident="syntacticArgument" ns="http://www.iso.org/ns/LMF">
+            <classes>
+              <memberOf key="model.subcategorizationFramePart"/>
+            </classes>
+            <content>
+              <rng:zeroOrMore>
+                <rng:ref name="model.syntacticArgumentPart"/>
+              </rng:zeroOrMore>
+            </content>
+          </elementSpec>
+          <elementSpec ident="syntacticFunction" ns="http://www.iso.org/ns/LMF">
+            <classes>
+              <memberOf key="model.syntacticArgumentPart"/>
+            </classes>
+            <content>
+              <rng:text/>
+            </content>
+          </elementSpec>
+          <!--
+ Making a few TEI elements members of the appropriate content models 
+-->
+          <!--
+ Grammatical features (gramGrp), colloc, gloss, ref for syntactic arguments 
+-->
+          <!--  Class definition  -->
+          <classSpec type="model" ident="model.syntacticBehaviourPart">
+            <desc>
+              Basic class to describe the content model of the
+              <gi>syntacticBehaviour</gi>
+              element
+            </desc>
+          </classSpec>
+          <classSpec type="model" ident="model.subcategorizationFramePart">
+            <desc>
+              Basic class to describe the content model of the
+              <gi>subcategorizationFrame</gi>
+              element
+            </desc>
+          </classSpec>
+          <classSpec type="model" ident="model.syntacticArgumentPart">
+            <desc>
+              Basic class to describe the content model of the
+              <gi>syntacticArgument</gi>
+              element
+            </desc>
+          </classSpec>
+        </schemaSpec>
+      </div>
+    </body>
+  </text>
+</TEI>
