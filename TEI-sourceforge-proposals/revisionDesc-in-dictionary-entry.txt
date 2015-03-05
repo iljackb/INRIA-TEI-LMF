@@ -1,0 +1,4 @@
+submit ticket to allow ‘revisionDesc’ or ‘listChange’ element to occur within a dictionary entry;
+
+reasoning: it is a hassle to have to scroll up to the header every time there is a change made; it is cumbersome to provide links to the individual entries
+ 

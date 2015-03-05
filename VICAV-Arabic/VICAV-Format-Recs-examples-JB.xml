@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Log of Recommended Changes to VICAV Arabic Dictionary Structure</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+         <sourceDesc><!-- JB: Ontolex link: each equivalent instances of ''Lexicon'; Ontolex:  http://www.w3.org/ns/lemon/ontolex/Lexicon -->
+            <bibl xml:id="egyptDict">A Machine-readable Dictionary of Egyptian Arabic</bibl>
+            <bibl xml:id="rabatDict">A Machine-readable Dictionary of Rabat Arabic </bibl>
+            <bibl xml:id="tunisDict">A Digital Dictionary of Tunis Arabic</bibl>
+            <bibl xml:id="damascDict">A Digital Dictionary of Damascus Arabic</bibl>
+            <bibl xml:id="msaDict">A Machine-readable Dictionary of Modern Standard Arabic</bibl>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>
+   <text>
+      <body>
+         <ab> 
+            This document contains recommendations regarding the structure of VICAV
+            Dictionary of Arabic Dialects as per team at INRIA with the following principles
+            in mind: the dictionary should be the most optimally structured in terms of
+            the TEI standards; the structure and contents of the lexical data contained
+            therein; and its compatibility with LMF language encoding standards. 
+         </ab>
+         
+         <list>
+            <head>Overview of Recommended Changes to Vicav Dictionary Structure</head>
+           
+            <item>Embedd the highest level <gi>gramGrp</gi> info within the <val>lemma</val> <gi>form</gi>:
+               where a unique sense or inflection of the lemma needs a distinctive grammatical description, 
+               include these in the <val>inflected</val> <gi>form</gi> and/or the <gi>sense</gi> element structures respectively;<!-- pointer to examples --></item>
+    
+            <item>"@<att>xml:lang</att>" should only be used to specify specific language varieties, preferably using registered code where possible;
+               eg., <val></val>, <val></val>, <val></val>...
+               this change affects how certain information that is important to how a number of different types of
+               linguistic information can be encoded within these dictionaries;</item>
+            <!-- In accordance with the WC3 Best practice (BCP 47), the use of @xml:lang should be to specify a specific language variety.
+               In the VICAV, this attribute is used to mark what really should be labeled as '@notation'. -->
+            
+            <item>Replacing the aformentioned use to distinguish the different orthographic systems used in these dictionaries within the <gi>orth</gi> element,
+               it is recommended that the following attribute-value pairs/options be adopted:
+               @<att>type</att> = (<val>transcription</val> | <val>transliterated</val>);
+               @<att>notation</att> = (<val>arabic</val> | (<val></val> | <val></val> | <val></val> |...));
+            </item>
+            
+            <item>Replace non-TEI '@<att>numID</att>' with TEI '@<att>n</att>'</item>
+            
+            <item>Replace use of <gi>fs</gi> to mark changes in each entry to:</item><!-- Consult Laurent on his pursuit of this in the TEI  -->          
+            
+            <item>Declare/enumerate values referenced in @ana;</item><!-- Still needs final discussion -->
+            
+            <item>(Values for <gi>form</gi>): replace <val>multiWordUnit</val> with built-in values already in TEI: eg.; <val>phrase</val>, and/or <val>compound</val>;</item><!-- CHECK W/Laurent -->
+            
+            <item>Specifying the notation used in examples within the '<gi>cit</gi>/<gi>quote</gi>' structure:</item><!-- So are we choosing to recommend that everyone uses 'seg @notation' then? If so, I assume we will then also include that in the list of recommendations for P6, right?-->
+            
+            <item>Where there are more than one examples of translations given in the '<gi>cit</gi>/<gi>quote</gi>' structure, it may be a good idea to either:
+                 i) create separate translation structures;<!-- this is better for ontolex compatibility-->
+                 ii) have a system that marks divisions according to punctuation (eg. comma);
+            
+            </item>
+            
+            
+
+         </list>
+
+         <!-- JB: What about also including @ value 'root' in order to create entries of the roots referenced throughout the dictionaries in the 'gramGrp'? Putting them all at the top would be helpful... -->
+         
+         
+         <div xml:id="entry-types-VICAV">
+            <label>Entry types</label>
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               <entry xml:id="maktab_3" n="1069">
+                  <form type="lemma">
+                     <form type="compound">
+                        <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">maktab siyāḥa</orth>
+                        <orth type="standard" notation="ar-arz-x-cairo-arabic">مكتب سياحة</orth>
+                     </form>
+                  </form>
+                  
+                  <sense>
+                     <cit type="translation" xml:lang="en">
+                        <quote>travel agency</quote>
+                     </cit>
+                     
+                     <cit type="translation" xml:lang="de">
+                        <quote>Reisebüro</quote>
+                     </cit>
+                  </sense>
+                  ...
+               </entry>
+            </egXML>
+            
+         </div>
+         <!-- 
+         
+          <p>
+               in the interest of using encoding elements, attributes, values that are native to TEI, I have been thinking about potential ways to 
+               encode the information currently labeled as: 'multiWordUnit'. I think that there are some cases where it can definitely be expressed as
+               with either of the native TEI values 'phrase' or 'compound'.</p>
+            <p>  
+               However the criteria for deciding between which of these two values to use on many of the entries is reliant upon knowing the following:
+                 
+                 i) the semantics of these individual components (if not grammatical only);                      
+
+                 ii.a) their morpho-syntactic (grammatical) features in other linguistics contexts (if any);
+                 
+                 ii.b) the strategies in Arabic for marking this information;   
+  
+            </p>
+             <note>Optionally, the semantic and/or grammatical information of the constituents of a 'phrase' typed entry could also be expressed; eg. person ='1st', number='plural'</note>
+               </eg>
+            <p>
+                 Since I'm not an Arabic speaker and don't really know much about its structure beyond it's non-concatenative morphology, I was wondering if you
+               could help me by providing the information above for a few of these entries (included below) so that I can then give you some examples of what I 
+               envision for encoding.</p>
+            
+          Having a more refined/specific way of labeling these entries could make any automated parsing/retreival of the data contained ...
+            <p>
+                 Additionally, there is the question of how to describe the grammatical information for the entry as/per its functional use in the actual language
+               (as opposed to those of its component parts). One of our recommendations is that all entries contain a '<gi>gramGrp</gi>' and depending on whether the distinction
+               is made between a '<val>phrase</val>' or a '<val>compound</val>', the types of potential grammatical info and values will obviously differ.
+               
+               <num>1)</num>
+                   For '<val>phrase</val>', the minimal <gi>gram</gi> values will be at the phrase level;
+                   
+                   
+                         
+               <num>2)</num>
+                  For '<val>compound</val>', the minimal <gi>gram</gi> values will be at the level of the word (like any other entry) 
+               <note>Optionally: the semantic and/or grammatical information of its component parts could also be described within the <gi>etym</gi> element;</note>
+         -->
+         
+         <div>
+            <head>Grammatical Information: <gi>gramGrp</gi> and <gi>gram</gi></head>
+            
+            <p>Grammatical information should be stored consistently within the '<gi>form</gi>' element, or where a distinction exists based on the grammatical role,
+               it should be stored within the '<gi>sense</gi>' element. The element '<gi>gram</gi>' should only occur within the larger structure of '<gi>gramGrp</gi>'.
+            </p>
+            <!--VICAV reccomendations: this should ideally be included within each 'form' element of an entry -->
+         </div>
+         
+         
+         <div xml:id="variation-VICAV"> <head>Variants</head>
+            
+            <p>The recommmended formatting are designed to treat variants of all kind in the most consistant and efficient way;</p>
+            
+            <p>This first example shows the original and recommended formatting for (phonetics based) orthographic variants;</p>
+            
+            <label>Original Format (of 'form' cluster)</label><!--XML: can I change the color of the examples from the old formatting? -->  
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               <entry xml:id="dilwat_0" numID="829">
+                  <form type="lemma">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">dilwaʔt</orth>
+                     <form type="variant">
+                        <orth xml:lang="ar-arz-x-cairo-vicavTrans">dilwaʔti</orth>
+                        <orth xml:lang="ar-arz-x-cairo-arabic">دلوقتي</orth>
+                     </form>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">دلوقت</orth>
+                  </form>
+                  <gramGrp>
+                     <gram type="pos">adverb</gram>
+                  </gramGrp>
+                  ....... 
+               </entry>
+            </egXML>
+            <label>Recommended Reformatting</label>
+            
+            <p>This example shows a case where the lemma has a form that is assumedly more "standard-like" and one that is a variant of that form that is regularly observed in the
+               actual language. The most significant change to the structure are:
+               i) the nesting of original highest level (non-variant) item within its own '<gi>form</gi>' at the same level as that of the variant; 
+               ii) the addition of the attribue value '<val>reference</val>' to indicate that the contained form is the primary reference for that entry's lemma.</p>
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               .....
+               <form type="lemma">
+                  <form type="reference">
+                     <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">dilwaʔt</orth>
+                     <orth type="standard" notation="arabic">دلوقتي</orth>
+                  </form>
+                  <form type="variant">
+                     <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">dilwaʔti</orth>
+                     <orth type="standard" notation="arabic">دلوقت</orth>
+                  </form>
+                  <gramGrp>
+                     <gram type="pos">adverb</gram>
+                  </gramGrp>
+               </form>
+               .....
+            </egXML>
+
+            <label>Original Format (from example in VICAV overview document)</label>
+            <!-- 'div3 xml:id="variants"' -->
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#damascDict"> 
+               ...
+               <form type="lemma">
+                  <orth xml:lang="ar-apc-x-damascus-vicavTrans">tžawwaz</orth>
+                  <form type="variant">
+                     <orth xml:lang="ar-apc-x-damascus-vicavTrans">dzawwaž‎</orth>
+                  </form>
+               </form>
+               ...
+            </egXML>
+
+            <label>Recommended Reformatting</label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#damascDict"> ...
+               <form type="lemma">
+                  <form type="reference">
+                     <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">tžawwaz</orth>
+                  </form>
+                  <form type="variant">
+                     <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">dzawwaž‎</orth>
+                  </form>
+               </form>
+               ... 
+            </egXML>
+            
+            <label>Variations in Register</label>
+            
+            <label>Original Format</label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#egyptDict">
+               ... 
+               <form type="inflected" ana="#v_pp_m">
+                  <usg type="reg">informal</usg>
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">mittihim</orth>
+               </form>
+               <form type="inflected" ana="#v_pp_m">
+                  <usg type="reg">formal</usg>
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">muttaham</orth>
+               </form>
+               ...
+            </egXML>
+            
+            <label>Recommended Format</label>
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#egyptDict">
+               ...
+               <form type="inflected" ana="#v_pp_m">
+                  <gramGrp>
+                     <gram type="pos">V</gram>
+                     <gram type="num">pl.</gram>
+                     <gram type="gen">m</gram>
+                  </gramGrp>                 
+                  <form type="variant"> 
+                     <orth type="transliteration" notation="ar-arz-x-cairo-vicavTrans">mittihim</orth>
+                     <gramGrp>
+                        <usg type="reg">informal</usg>
+                     </gramGrp>
+                  </form>
+                  <form type="variant" ana="#v_pp_m">
+                     <orth type="transliteration" notation="ar-arz-x-cairo-vicavTrans">muttaham</orth>
+                     <gramGrp>
+                        <usg type="reg">formal</usg>
+                     </gramGrp>
+                  </form>
+               </form>
+               ...
+            </egXML>
+
+
+            <label/>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               
+               <form type="inflected" ana="#n_pl">
+                  <orth xml:lang="ar-apc-x-damascus-vicavTrans">kǝnaz</orth>
+               </form>
+               <form type="inflected" ana="#n_pl">
+                  <orth xml:lang="ar-apc-x-damascus-vicavTrans">kanzāt</orth>
+               </form>
+               ...
+            </egXML>
+
+
+
+
+         </div>
+
+         <div>
+            <!-- TEMPORARY EXAMPLES FROM ODD TO RE DO/FORMAT -->
+            <!-- This first example demonstrates the use of the attribute-value pairs @type="lemma" and @type="inflected" within 'form':-->
+            
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               <entry xml:id="bahr_0" numID="775">
+                  <form type="lemma">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">baḥr</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">بحر</orth>
+                  </form>
+                  
+                  <gramGrp><!-- JB: (Confirm with Laurent) add this info to 'form @type="inflected"' to be consistent; or at least define the @ana values so this info can be derived by application -->
+                     <gram type="pos">noun</gram>
+                     <gram type="root" xml:lang="ar-arz-x-cairo-vicavTrans">bḥr</gram>
+                  </gramGrp>
+                  
+                  <form type="inflected" ana="#n_pl"><!-- (JB) VICAV: I like @ana but I think it should be applied with more consistency (and with values that are enumerated and listed) -->
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">buḥūr</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">بحور</orth><!-- JB: Should we put this new gramGrp here, with: plural as value of gram @type="num"? -->
+                  </form>
+                  
+                  <sense>
+                     <cit type="translation" xml:lang="en">
+                        <quote>sea</quote>
+                     </cit>
+                     
+                     <cit type="translation" xml:lang="de">
+                        <quote>Meer</quote>
+                     </cit>
+                  </sense>
+                  <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2012_02_29"/></f></fs>
+                  <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2012_08_05"/></f></fs>
+                  <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2012_11_28"/></f></fs>
+               </entry>
+               </egXML>
+            
+            <label>Recommended Version </label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               
+            </egXML>
+            
+            <label>Reformatted Version (Cairo)</label>
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               
+               <entry xml:id="bahr_0" n="775">
+                  <form type="lemma">
+                     <orth type="transliteration" notation="ar-arz-x-cairo-vicavTrans">baḥr</orth>
+                     <orth type="transcription" notation="ar-arz-x-cairo-arabic">بحر</orth>
+                     <gramGrp>
+                        <pos>noun</pos>
+                        <gram type="root" xml:lang="ar-arz-x-cairo-vicavTrans">bḥr</gram>
+                     </gramGrp>
+                  </form>
+                  <form type="inflected" ana="#n_pl">
+                     <orth type="transliteration" notation="ar-arz-x-cairo-vicavTrans">buḥūr</orth>
+                     <orth type="transcription" notation="ar-arz-x-cairo-arabic">بحور</orth>
+                     <gramGrp>
+                        <num>pl</num>
+                     </gramGrp>
+                  </form>
+               </entry>
+               
+            </egXML>
+    
+            
+            <label>Original Format (Cairo)</label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               
+               <entry xml:id="yalla_0" n="804">
+                  <form type="multiWordUnit"><!-- JB: what is the difference between this and the built in TEI attribute value 'phrase'?-->
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">yaḷḷa bīna!</orth><!-- JB: consider using 'c' and 'pc' where they occur in entries? -->
+                     <orth xml:lang="ar-arz-x-cairo-arabic">يلة بين!</orth>
+                  </form>
+                  <sense>
+                     <cit type="translation" xml:lang="en">
+                        <quote>Let’s go!</quote>
+                     </cit>
+                     <cit type="translation" xml:lang="de">
+                        <quote>Gehen wir!</quote>
+                     </cit>
+                  </sense>
+               </entry>
+            </egXML>
+               
+
+           
+            
+            <label>Original Format (Cairo)</label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               
+               <entry xml:id="filistini_0" numID="873">
+                  <form type="lemma">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">filisṭīni</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">فلسطيني</orth>
+                  </form>
+                  
+                  <gramGrp>
+                     <gram type="pos">adjective</gram>
+                     <gram type="root" xml:lang="ar-arz-x-cairo-vicavTrans">-</gram><!-- JB:why is this '-' included? if because word is of foreign origin without root, perhaps mark this?  -->
+                  </gramGrp>
+                  
+                  <form type="inflected" ana="#adj_sg_f">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">filisṭiniyya</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">فلسطنية</orth>
+                  </form>
+                  
+                  <form type="inflected" ana="#adj_pl">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">filisṭiniyyīn</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">فلسطنيين</orth>
+                  </form>
+                  
+                  <sense><!-- JB: this could use the element 'use @type="dom" with value "nationality"  -->
+                     <cit type="translation" xml:lang="en">
+                        <quote>Palestinian</quote>
+                     </cit>
+                     
+                     <cit type="translation" xml:lang="de">
+                        <quote>palästinensisch, Palästinenser</quote>
+                     </cit>
+                  </sense>
+               </entry>
+               
+               <!--This last example is to show where 'gramGrp' has been used in the 'sense' element in the dataset in order to decide on constraints...-->
+               
+            </egXML>
+            
+            
+            
+            <label>Original Format (Damascus)</label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry xml:id="entry_000006" numID="776">
+               <form type="lemma">
+                  <orth xml:lang="ar-apc-x-damascus-vicavTrans">rāḥ</orth>
+               </form>
+               
+               <gramGrp>
+                  <gram type="pos">verb</gram>
+                  <gram type="root" xml:lang="ar-apc-x-damascus-vicavTrans">rwḥ</gram>
+               </gramGrp>
+               
+               <form type="inflected" ana="#v_pres_sg_p3"> <!-- JB: awaiting decision about what to do with @ana (the value has been distributed within unique elements within gramGrp) -->
+                  <orth xml:lang="ar-apc-x-damascus-vicavTrans">yrūḥ</orth>
+               </form>
+               
+               <sense>
+                  <cit type="translation" lang="en">
+                     <quote>to go</quote>
+                  </cit>
+                  
+                  <cit type="translation" xml:lang="de">
+                     <quote>gehen</quote>
+                  </cit>
+                  
+                  <cit type="translation" xml:lang="es">
+                     <quote>ir</quote>
+                  </cit>
+               </sense>
+               
+               <sense>
+                  <gramGrp>
+                     <gram type="arguments" xml:lang="ar-apc-x-damascus-vicavTrans">ʕala</gram>
+                  </gramGrp>
+                  
+                  <cit type="translation" lang="en">
+                     <quote>to drive away</quote>
+                  </cit>
+                  
+                  <cit type="translation" xml:lang="de">
+                     <quote>j-m davonfahren</quote>
+                  </cit>
+                  
+                  <cit type="translation" xml:lang="es">
+                     <quote>-</quote>
+                  </cit>
+               </sense>
+               
+               <xr>
+                  <bibl type="damscCourse">3</bibl>
+               </xr>
+               
+               <xr>
+                  <bibl type="damascCourse">19</bibl>
+               </xr>
+               <fs type="change"><f name="who"><symbol value="stephan"/></f><f name="when"><symbol value="2012_03_20"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="carmen"/></f><f name="when"><symbol value="2012_08_27"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="Stephan"/></f><f name="when"><symbol value="2013_07_17"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="stephan"/></f><f name="when"><symbol value="2013_12_13"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="stephan"/></f><f name="when"><symbol value="2014_02_11"/></f></fs>
+            </entry>
+            </egXML>
+            
+            <label>Recommended Version</label>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <!--
+               <gramGrp>
+                  <gram type="tns">present</gram>
+                  <gram type="num">sg</gram>
+                  <gram type="pers">3rd</gram>
+               </gramGrp>
+               -->
+            </egXML>
+            
+            
+            
+            
+            <label>Original Entry (Cairo)</label>
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               
+            <entry xml:id="acma_001" numID="3077">
+               <form type="lemma">
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">ʔaʕma</orth>
+                  <orth xml:lang="ar-arz-x-cairo-arabic">اعمى</orth>
+               </form>
+               
+               <gramGrp>
+                  <gram type="pos">adjective</gram>
+                  <gram type="semCat">physicalCharacteristic</gram><!-- JB: Isn't this more of the kind of content best fit for 'usg'? -->
+                  <gram type="root" xml:lang="ar-arz-x-cairo-vicavTrans">ʕmy</gram>
+               </gramGrp>
+               
+               <form type="inflected" ana="#adj_f">
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">ʕamya</orth>
+                  <orth xml:lang="ar-arz-x-cairo-arabic">عميا</orth>
+               </form>
+               
+               <form type="inflected" ana="#adj_f">
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">ʕamyāʔ</orth>
+                  <orth xml:lang="ar-arz-x-cairo-arabic">عمياء</orth>
+               </form>
+               
+               <form type="inflected" ana="#adj_pl">
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">ʕumy</orth>
+                  <orth xml:lang="ar-arz-x-cairo-arabic">عمي</orth>
+               </form>
+               
+               <form type="inflected" ana="#adj_pl">
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">ʕimyān</orth>
+                  <orth xml:lang="ar-arz-x-cairo-arabic">عميان</orth>
+               </form>
+               
+               <sense>
+                  <cit type="translation" xml:lang="en">
+                     <quote>blind</quote>
+                  </cit>
+                  
+                  <cit type="translation" xml:lang="de">
+                     <quote>blind</quote>
+                  </cit>
+               </sense>
+               <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2012_04_11"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2012_06_09"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2012_11_22"/></f></fs>
+               <fs type="change"><f name="who"><symbol value="charly"/></f><f name="when"><symbol value="2014_06_02"/></f></fs>
+            </entry>
+            
+            </egXML>
+
+
+         </div>
+         
+         <div xml:id="UNRESOLVED-ISSUES-VICAV">
+            <head>Unresolved Formatting Issues (as of: <date>2014-12-30</date>)</head>
+            
+            <div><label>Use of '<gi>colloc</gi>'</label>
+               
+               <label>Original Formatting (Tunis Dictionary)</label>
+               
+               <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#tunisDict"> ...
+                  <form type="lemma">
+                     <orth xml:lang="ar-aeb-x-tunis-vicav">sfinnārya</orth>
+                  </form>
+                  <gramGrp>
+                     <gram type="pos">collectiveNoun</gram>
+                     <gram type="usg">has no unit noun</gram><!-- JB: What is this use of @ value 'usg'? -->
+                     <colloc type="countNoun" lang="ar-aeb-x-tunis-vicav">kaʕba</colloc><!-- JB: What is this value? -->
+                     <gram type="root" xml:lang="ar-aeb-x-tunis-vicav">sfnry</gram>
+                  </gramGrp>
+                  <sense>
+                     <cit type="translation" xml:lang="en">
+                        <quote>carrots</quote>
+                     </cit> ...
+                  </sense> ...
+               </egXML>
+                
+               
+            </div>
+            
+            
+         </div>
+         
+         <div xml:id="notes-on-extensibility-VICAV">
+            <label>Potential Areas of Extensibility</label>
+            <p>If so desired in the present or future, these formatting guidelines can accommodate the addition of multiple types of linguistic information
+               that is currently not included in the VICAV dictionaries....</p>
+            
+            <div xml:id="phonetic-forms">
+               <label>Phonetic Information</label>
+               <p>While phonetic information has not been explicitly provided to this point in the VICAV dictionaries (and there may be no plans to do so in the near future), should future curators so desire, this information would fit
+               into the current TEI-P5 structure as follows:<note>sample transcriptions are not done with first hand knowledge of the language but from assumptions made from the transliterated orthography)</note></p>
+               
+               <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#damascDict">
+                  ...
+                  <form type="lemma">
+                     <form type="reference">
+                        <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">tžawwaz</orth>
+                        <pron notation="ipa">t͡ʤaw:az</pron>
+                     </form>
+                     <form type="variant">
+                        <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">dzawwaž‎</orth>
+                        <pron notation="ipa">dzaw:aʤ</pron>
+                     </form>
+                  </form>
+                  ... 
+               </egXML>
+               
+               
+               
+               
+            </div>
+            
+         </div>
+         
+         <div xml:id="RemainingIssues">
+            <label>Remaining Issues in VICAV Dictionaries in Need of Resolution</label>
+            <p>
+               <list>
+                  <item xml:id="Q-vicav-arguments"><att>type</att>="<val>arguments</val>":
+                      > What is the linguistic information being referred to here?
+                      > If there is two alternate linguistic values possible, there should be a more systematic way of representing this;
+                  </item>
+                  
+                  
+               </list>
+            </p>
+
+            <p>This example (shown here with partially updated formatting) is a case in which this issue is present:
+
+            </p>
+            
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples"><!-- baarik_001 -->
+               <entry xml:id="baarik_001" n="779">
+                  <form type="lemma">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">bārik</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">بارك</orth>
+                     <gramGrp>
+                        <gram type="pos">verb</gram>
+                        <gram type="subc">III</gram>
+                        <gram type="root" xml:lang="ar-arz-x-cairo-vicavTrans">brk</gram>
+                     </gramGrp>
+                  </form>                 
+                  <form type="inflected" ana="#v_pres_sg_p3">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">yibārik</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">يبارك</orth>
+                     <gramGrp>
+                        <gram type="tns">pres</gram>
+                        <gram type="pers">3rd</gram>
+                        <gram type="num">sg</gram>
+                     </gramGrp>
+                  </form>  
+                  <sense>
+                     <gramGrp>
+                        <gram type="arguments">li-/fi-</gram>
+                     </gramGrp> 
+                     <cit type="translation" xml:lang="en">
+                        <quote>to congratulate</quote>
+                     </cit>  
+                     <cit type="translation" xml:lang="de">
+                        <quote>gratulieren (jdm)</quote>
+                     </cit>
+                     <ptr type="example" target="allaah_yibaarik_fiik_001"/>
+                  </sense>
+                  ....
+               </entry>
+            </egXML>
+            
+            
+
+
+         </div>
+         
+         <div xml:id="multiWordUnit-VICAV">
+            <label><val>multiWordUnit</val> as value of <gi>entry</gi> <att>type</att>:</label>
+            
+            <p>The use of this non TEI value in many cases can clearly be replaced by one of the native TEI options: <val>phrase</val> or <val>compound</val>, 
+               there are some that are more ambiguous and in order to decide on the best value for which it may be necessary to delve into some issues of linguistic theory
+               and potentially arabic linguistics.
+               
+               One key question is: what is the (intended) difference between a 'multi word unit' and a 'phrase'?
+               
+               Another is: what is the diference between a 'phrase' and a 'compound' lexical item (or word)?
+            </p>
+            
+            <label>Compounds</label>
+            <p></p>
+
+            
+            <p>This following example however is what would be considered a complete sentence grammatically and semantically.</p>
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               <entry xml:id="yalla_0" n="804">
+                  <form type="multiWordUnit">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">yaḷḷa bīna!</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">يلة بين!</orth>
+                  </form>
+                  <sense>
+                     <cit type="translation" xml:lang="en">
+                        <quote>Let’s go!</quote>
+                     </cit>
+                     <cit type="translation" xml:lang="de">
+                        <quote>Gehen wir!</quote>
+                     </cit>
+                  </sense>
+                  ....
+               </entry>
+               
+            </egXML>
+            
+            
+            
+            
+            <p>These following examples need some linguistic clarification:</p>
+            
+            
+            <note>Are the components of this form:
+               a preposition/adposition 'with' + pronoun 'us'?
+               a case inflection that expresses 'with' expressed on a pronoun? (is arabic a head marking language?)           
+            </note>
+            
+            
+            
+            
+            
+            <egXML xmlns="http://www.tei-c.org/ns/Examples">
+               <entry xml:id="ya_beeh_001" numID="797">
+                  <form type="multiWordUnit">
+                     <orth xml:lang="ar-arz-x-cairo-vicavTrans">ya-bēh</orth>
+                     <orth xml:lang="ar-arz-x-cairo-arabic">يا بيه</orth>
+                  </form>
+                  <sense>
+                     <cit type="translation" xml:lang="en">
+                        <quote>Sir</quote>
+                     </cit>               
+                     <cit type="translation" xml:lang="de">
+                        <quote>mein Herr</quote>
+                     </cit>
+                  </sense>
+              ....
+               </entry>
+            </egXML>
+            
+            
+            
+            <note>
+               Is this grammaticalized?
+               What are the original meanings of these two component items outside of this phrase?
+               My inclination would be to call this a 'phrase' and I would advise to insert a gramGrp and label this an 'adpositional phrase'
+            </note>
+
+            
+         </div>
+           
+
+         
+
+      </body>
+   </text>
+</TEI>

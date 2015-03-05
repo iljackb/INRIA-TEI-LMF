@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Examples for oRef and pRef Change Ticket</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+     <revisionDesc>
+        <change><date>2015-04-04</date><time>13:47</time> First five samples finished given to Laurent</change>
+     </revisionDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <p>The TEI dictionary chapter comprises four element for referring back to forms in dictionary entries (oRef, oVar, pRef, pVar), whose respective usage has never corresponded to clear-cut scenarios, especially because of the lack of clear set of use cases and examples. This has lead to a low usage of these elements in most TEI based dictionary projects but also in the absence of best practices for all the concrete cases (examples, etymology) where marking forms and associating them to (real or virtual) entries would help formalising lexical content in a systematic way.
+            
+            The main issue is that the difference between pRef and pVar (resp. oRef/oVar) does not match the logic of tagging form references in a dictionary entry:
+            
+            pRef (resp. oRef) is limited (empty content) to the case where the form is exactly the one on the same entry, which is rarely the case (e.g. when orthographic variants exist)
+            pVar is only intended to be used when there is a variation (e.g. inflected form) but contrary to pRef, but with its non empty content, it is often tempting to use it to mark all types of forms
+            It has also been pointed out that there are also issues related to the unsatisfactory definition of @type and the absence of @notation.
+            
+            Proposal: we suggest to drop oVar and pVar and extent both the scope and content model of pRef and oRef to offer a simple system for the annotation of forms (orthographic and phonetic) in dictionary entries, with a clear parallel to orth and pron in the description of forms.
+            
+            The main changes would be:
+            
+            allow text in oRef and pRef; while keeping the possibility to leave them empty when necessary
+            make them member of att.typed
+            make them member of att.lexicographic to bring them in line with and enable full correspondence with linguistic/lexicographic usage of orth> and prone
+            add @notation in pRef in order to bring it in line with pron (probably a good opportunity to make a class out of @notation); useful in cases where there are more than one notations being represented in pron
+            from a semantic point of view, allow these elements to point to any dictionary entry not just the current entry’s head item (same dictionary or even other dictionaries in the case of the marking up of etymology)
+         </p>
+         <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry xml:id="body-male-testicles" xml:lang="mix">
+               <form type="lemma">
+                  <orth>tivi</orth>
+                  <pron notation="ipa">dì.ví</pron>
+                  <gramGrp>
+                     <pos>noun</pos>
+                  </gramGrp>
+               </form>
+               <sense corresp="http://dbpedia.org/resource/Testicles">                 
+                  <etym type="metaphor">
+                     <usg type="dom">Male Anatomy</usg>
+                     <lbl>Metaphor</lbl>
+                     <cit type="etymon">
+                        <oRef target="#egg">tivi</oRef>
+                        <gloss>egg</gloss>
+                     </cit>
+                  </etym> 
+                  <cit type="translation" xml:lang="eng">
+                     <quote>testicles</quote>
+                  </cit>
+               </sense>
+            </entry>
+         </egXML>
+         <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry xml:id="teacher-MIX" xml:lang="mix">
+               <form type="lemma">
+                  <orth>skulero</orth>
+                  <pron notation="ipa">sku.lé.rù</pron>
+                  <gramGrp>
+                     <pos>noun</pos>
+                  </gramGrp>
+               </form>
+               <sense>
+                  <usg type="dom">Occupation</usg>
+                  <usg type="dom">Education</usg>
+                  <etym type="borrowing">
+                     <lbl>Source</lbl>: <lang>Spanish</lang>
+                     <cit type="etymon">
+                        <oRef xml:lang="es">esculero</oRef>
+                        <pRef xml:lang="es">ɛsku'lɛru</pRef>
+                        <gloss>teacher</gloss>
+                     </cit>
+                  </etym>
+                  <cit type="translation" xml:lang="es">
+                     <quote>esculero</quote>
+                  </cit>
+                  <cit type="translation" xml:lang="en">
+                     <quote>teacher</quote>
+                  </cit>
+               </sense>
+            </entry>
+         </egXML>
+         
+         <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry xml:id="kidney">
+               <form type="lemma">
+                  <orth>ntuchi</orth>
+                  <pron notation="ipa">ndú.ʧì</pron>
+                  <pron notation="zsampa">d_n\ u_H (tS) i_L</pron>
+                  <gramGrp>
+                     <pos>noun</pos>
+                  </gramGrp>
+               </form>
+               <sense corresp="http://dbpedia.org/resource/Kidney">
+                  <usg type="dom">Body</usg>
+                  <usg type="dom">Internal Organs</usg>
+                  <etym type="metaphor">
+                     <cit type="etymon">
+                        <oRef corresp="#bean">ntuchi</oRef>
+                        <pRef notation="ipa" corresp="#bean">ndú.ʧì</pRef>
+                        <gloss>bean</gloss>
+                     </cit>
+                  </etym>
+                  <cit type="translation" xml:lang="en">
+                     <quote>kidney</quote>
+                  </cit>
+               </sense>
+            </entry>
+         </egXML>
+         
+         <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry xml:id="sushi" xml:lang="en">
+               <form type="lemma">
+                  <orth>sushi</orth>
+                  <pron notation="ipa">'suʃi</pron>
+                  <gramGrp>
+                     <pos>noun</pos>
+                  </gramGrp>
+               </form>
+               <sense corresp="http://dbpedia.org/resource/Sushi">
+                  <usg type="dom">food</usg>
+               </sense>
+               <etym type="borrowing">
+                  <lbl>source</lbl>: <lang>Japanese</lang>
+                  <oRef notation="kanji" xml:lang="jpn">寿司</oRef><!-- can add @corresp here if we want to show pointers -->
+                  <oRef notation="hiragana" xml:lang="jpn">「すし」</oRef>
+                  <pRef notation="ipa" xml:lang="jpn">sɯɕi</pRef>
+               </etym>
+            </entry>
+         </egXML>
+         
+         <egXML xmlns="http://www.tei-c.org/ns/Examples">
+            <entry xml:id="taxi" xml:lang="jpn">
+               <form type="lemma">
+                  <orth type="transliterated" notation="romanji">takushī</orth>
+                  <orth notation="katakana">タクシー</orth>
+                  <pron notation="ipa">taku'shi:</pron>
+                  <gramGrp>
+                     <pos>noun</pos>
+                  </gramGrp>              
+               </form>
+               <sense corresp="http://dbpedia.org/page/Taxicab">
+                  <usg type="dom">transportation</usg>
+                  <cit type="translation">
+                     <quote>taxi</quote>
+                  </cit>
+               </sense>
+               <etym type="borrowing">
+                  <lbl>source</lbl> <lang>English</lang> 
+                  <cit type="etymon">
+                     <oRef corresp="http://en.wiktionary.org/wiki/taxi" xml:lang="eng-US">taxi</oRef>
+                     <pRef notation="ipa" corresp="http://en.wiktionary.org/wiki/taxi#Pronunciation " xml:lang="eng-US">'tæksi</pRef>
+                  </cit>
+               </etym>
+            </entry> 
+         </egXML>
+      </body>
+  </text>
+</TEI>

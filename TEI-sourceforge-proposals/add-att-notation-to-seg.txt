@@ -1,0 +1,3 @@
+Add @notation to <seg> for Use in the Transcription of Linguistic Oriented Data:
+
+ In the interest of integrating the TEI’s capacity to consistently encode all types of language data in linguistic and lexicographical pursuits, <seg> should be able to mark different kinds of notation that may be used both to transcribe spoken language (as is necessary within <u>, and in representing/cataloging/compiling

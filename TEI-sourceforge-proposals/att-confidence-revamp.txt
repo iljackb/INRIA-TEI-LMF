@@ -1,0 +1,6 @@
+@confidence
+
+-allow elsewhere than att.ranging (which is designated for “describing numerical ranges”)
+ (use in lexicography, linguistics, etc. to express concept as applied to non-numeric data;
+
+- revamp values;

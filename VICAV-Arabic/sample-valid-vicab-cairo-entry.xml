@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="vicav-ODD-INRIA-test.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Sample Cairo Entry from sucessful test of ODD</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <entry xml:id="dilwat_0" n="829">
+            <form type="lemma">
+               <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">dilwaʔt</orth>
+               <orth type="standard" notation="arabic">دلوقتي</orth><!--JB: This is just a guess at what the script really is... -->
+               <oVar type="transliterated" notation="ar-arz-x-cairo-vicavTrans">dilwaʔti</oVar><!-- JB: this raises the question of whether these also correspond to pronunciation variants as well... -->    
+               <oVar type="standard" notation="arabic">دلوقت</oVar><!-- JB: to properly label the value of @type here, we need to know the nature of the variation...? > REGIONAL? and/or PRONUNCIATION BASED? -->
+               <!-- JB: The following empty elements are valid in ODD generated schema:
+               <pron notation="ipa"></pron>
+               <pVar notation="ipa"></pVar>
+               -->
+               <gramGrp>
+                  <gram type="pos">adverb</gram>
+               </gramGrp>
+            </form>
+            <sense>
+               <cit type="translation" xml:lang="en">
+                  <quote>now</quote>
+               </cit>
+               <cit type="translation" xml:lang="de">
+                  <quote>jetzt</quote>
+               </cit>
+            </sense>
+         </entry>
+      </body>
+  </text>
+</TEI>

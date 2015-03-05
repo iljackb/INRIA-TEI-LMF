@@ -1,0 +1,773 @@
+<?xml version="1.0"?>
+<?xml-model href="tei_odds.rnc" type="application/relax-ng-compact-syntax"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:s="http://purl.oclc.org/dsdl/schematron"
+    xmlns:rng="http://relaxng.org/ns/structure/1.0" xml:lang="en">
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>Dictionary ODD</title>
+                <author>Jack T. Bowers</author>
+            </titleStmt>
+            <publicationStmt>
+                <p>for use by whoever wants it</p>
+            </publicationStmt>
+            <notesStmt>
+                <note type="ns">http://www.example.org/ns/nonTEI</note>
+            </notesStmt>
+            <sourceDesc>
+                <p>Born digital</p>
+            </sourceDesc>
+        </fileDesc>
+    </teiHeader>
+    <text>
+        <body>
+            <div>
+                <head>Recommended TEI Dictionary Structure</head>
+                <p>This ODD document contains recommendations regarding the structure of Linguistic
+                    dictionaries in TEI P5 as per team at INRIA with the following principles in
+                    mind: the dictionary should be the most optimally structured in terms of the TEI
+                    standards; the structure and contents of the lexical data contained therein; and
+                    its compatibility with LMF language encoding standards. </p>
+
+                <!-- LMF: There are no examples in guidelines of plain orthography variations not having the @geographicalVariant or variatons being due to use of different scripts, table B.2 the closest thing to discussing issue;-->
+
+                <!-- JB - LMF:
+                   
+               CAN WE DECLARE NAMESPACE TO ALLOW FOR CREATION AND USE OF LMF EXAMPLES IN THIS DOCUMENT AS WELL?
+
+               - What attribute to use in LMF for 'register'? -->
+            </div>
+            <!-- JB: This is a temporary place where I'm keeping pasted formatting references for schematron:
+                
+                <sch:rule context="*[@subtype]">
+                <sch:assert test="@type">The <sch:name/> element should not be categorized in detail with @subtype 
+                unless also categorized in general with @type</sch:assert></sch:rule>
+            
+            
+            
+            
+            -->
+            <div>
+                <schemaSpec ident="ODD-INRIA-draft" docLang="en" prefix="tei_" xml:lang="en">
+                    <moduleRef key="gaiji" except="localName"/>
+                    <!-- JB: may be eliminated if not going to be used -->
+                    <moduleRef key="linking" except="alt altGrp join timeline"/>
+                    <!-- JB: may be eliminated if not going to be used -->
+                    <moduleRef key="dictionaries" except="dictScrap entryFree oVar pVar superEntry"/>
+                    <moduleRef key="core" except="add addrLine address biblScope binaryObject cb choice citedRange corr del distinct divGen email emph expan foreign gap gb graphic headItem headLabel index imprint l lg measure measureGrp meeting milestone monogr orig pb postBox postCode reg relatedItem said sic soCalled sp stage street term time unclear"/>
+                    <moduleRef key="textstructure"
+                        except="argument byline closer dateline div1 div2 div3 div4 div5 div6 div7 docAuthor docDate docEdition docImprint docTitle epigraph floatingText group imprimatur opener postscript salute signed titlePage titlePart trailer"/>
+                    <moduleRef key="figures" except="figDesc figure formula notatedMusic"/>
+                    <!-- JB: may be eliminated if not going to be used -->
+                    <moduleRef key="analysis" except="cl m phr s w"/>
+                    <!-- JB: may be eliminated if not going to be used -->
+                    <!--
+                    <moduleRef key="iso-fs" except="bicond binary cond default fDecl fDescr fLib fsConstraints fsDecl fsDescr fsdDecl fsdLink fvLib if iff numeric then vAlt vColl vDefault"/>
+                    -->
+                    <!-- JB: may be eliminated if not going to be used -->
+                    <moduleRef key="header"/>
+                    <moduleRef key="tei"/>
+                    <elementSpec ident="entry" module="dictionaries" mode="change">
+                        <gloss>entry</gloss>
+                        <!-- LMF: Maps directly to 'LexicalEntry'   -->
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="n" mode="change" usage="rec"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="sortKey" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="xml:id" mode="change" usage="rec"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                            <attDef ident="xml:lang" mode="delete"/>
+                            <attDef ident="xml:space" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <!--
+                    Note: For cases in which the same 'form' has multiple senses that are manifested as distinct parts of speech,
+                    the lemma will still have its own 'gramGrp' element cluster contained within 'form' and each distinct sense with unique grammatical classifications will contain a separate 'gramGrp' cluster within its 'sense' element.
+                
+                -->
+                    <elementSpec ident="form" module="dictionaries" mode="change">
+                        <gloss>form group information</gloss>
+                        <!-- LMF:  -->
+                        <!-- JB: Need to check, refine schematron format- Want to allow 'form' to occur as child of: 'entry'; form @="inflected"'; sense -->
+                        <!--<constraintSpec ident="forminfostructure" scheme="isoschematron">
+                        <constraint>
+                            <s:ns prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
+                            <s:rule context="tei:form">
+                                <s:assert test="parent::tei:"></s:assert>   
+                            </s:rule>                          
+                        </constraint>
+                    </constraintSpec>
+                    -->
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="datcat" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="type" mode="change" usage="req"/>
+                            <!-- LMF: LMF Guidelines has example of Arabic root management (B.3.6);
+                                that system has element class 'RelatedForm'; with the attribute-value pair of @type ="hasARoot";
+                                with the arabic roots are placed within embedded structures headded by another 'LexicalEntry' element
+                                with the attribute-value pair of '@type="root", containing a 'Lemma' element with the attribute-value pair in which the arabic root is the value of the attribute 
+                                '@writtenForm'; eg: 'writtenForm="ktb"' -->
+                            <!-- JB: may want to add @type value(s): 'paradigm', ... also adding value 'stem' may be useful; -->
+                            <!--
+                            <valList>
+                                <valItem ident="lemma">
+                                    <gloss>lemma</gloss>
+                                </valItem>
+                                <valItem ident="inflected">
+                                    <gloss>inflected</gloss>
+                                </valItem>
+                                <valItem ident="multiWordUnit">
+                                    <gloss>multi word unit</gloss>
+                                </valItem>
+                            </valList>
+                            </attDef>
+                                -->
+                            <!-- JB: should there be formatting considerations for these types? (@xml:space for example?) so that they parts can be segmented? -->
+
+                            <!-- should @type be required ? -->
+                            <attDef ident="value" mode="delete"/>
+                            <attDef ident="valueDatcat" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                        </attList>
+                        <!--Still to be resolved is the question of how to treat variant forms of lemma; (LMF not clear about this when not involving variations in phonetic form, orthographic system, or geographic-based variations.)..)-->
+                    </elementSpec>
+                    <elementSpec ident="gramGrp" module="dictionaries" mode="change">
+                        <gloss>grammatical information group</gloss>
+
+                        <!-- LMF: Represents all info that is contained within the reccommended TEI gramGrp structure as values of the attributes of the 'feat' element (@att, @val) ;
+                    -->
+                        <constraintSpec ident="forminfostructure" scheme="isoschematron">
+                            <!-- JB: Need to check, refine schematron format -->
+                            <!-- parent should be (form (OR) sense) -->
+                            <constraint>
+                                <s:assert context="tei:gramGrp">
+                                    <s:assert test="parent::tei:form">The parent of 'gramGrp' must
+                                        be 'form'</s:assert>
+                                </s:assert>
+                            </constraint>
+                            <!-- JB: change to "parent must be 'form' or 'sense'": There are cases where a sense 
+                                        of a common lemma can be considered distinguishable/delineated by the change in grammatical
+                                        role without changing the phonological or orthographcal form...form-->
+                        </constraintSpec>
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="value" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                            <attDef ident="xml:lang" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="gram" module="dictionaries" mode="change">
+                        <gloss>grammatical information</gloss>
+                        <!--JB: perhaps include reference to value in attribute @type or @ana   -->
+                        <!-- LMF:  -->
+                        <!--
+                       <constraintSpec scheme="schematron"> 
+                        <constraint>
+                            
+                        </constraint>
+                    </constraintSpec>
+                    -->
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="type" mode="change" usage="rec"/>
+                            <attDef ident="value" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="colloc" module="dictionaries" mode="change">
+                        <!-- JB: Can 'colloc' be used to specify the phrase type context in which a sense must occur? -->
+                        <gloss>collocate</gloss>
+                        <constraintSpec ident="forminfostructure" scheme="isoschematron">
+                            <!-- JB: Need to check, refine schematron format -->
+                            <constraint>
+                                <s:assert context="tei:colloc">
+                                    <s:assert test="parent::tei:gramGrp">The parent of 'colloc' must be 'gramGrp'</s:assert><!-- JB: is there cases where it may be needed elsewhere? -->
+                                </s:assert>
+                            </constraint>
+                        </constraintSpec>
+                        
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="type" mode="change" usage="rec"/>
+                            <attDef ident="value" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="def" module="dictionaries" mode="change">
+                        <constraintSpec ident="definfostructure" scheme="isoschematron">
+                            <!-- JB: Need to check, refine schematron format -->
+                            <constraint>
+                                <s:assert context="tei:def">
+                                    <s:assert test="parent::tei:sense">The parent of 'def' must be
+                                        'sense'</s:assert>
+                                </s:assert>
+                            </constraint>
+                        </constraintSpec>
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="norm" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="value" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                            <!--@xml:lang should be recommended -->
+                            <attDef ident="xml:space" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                   
+                    <classSpec ident="model.ptrLike.form" type="model" mode="change">
+                        <classes mode="change">
+                            <memberOf key="model.ptrLike" mode="add"/>
+                            <memberOf mode="add" key="att.typed"/>
+                        </classes>
+                    </classSpec>
+                    <elementSpec ident="etym" module="dictionaries" mode="change">
+                        <classes mode="change">
+                            <memberOf mode="add" key="att.typed"/>
+                        </classes>
+                        <content>
+                            <rng:zeroOrMore>
+                                <rng:choice>
+                                    <rng:text/>
+                                    <rng:ref name="etym"/>
+                                    <rng:ref name="model.gLike"/>
+                                    <rng:ref name="model.phrase"/>
+                                    <rng:ref name="model.inter"/>
+                                    <rng:ref name="usg"/>
+                                    <rng:ref name="lbl"/>
+                                    <rng:ref name="def"/>
+                                    <rng:ref name="model.morphLike"/>
+                                    <rng:ref name="xr"/>
+                                    <rng:ref name="model.global"/>
+                                </rng:choice>
+                            </rng:zeroOrMore>
+                        </content>
+                        <!--
+                        <constraintSpec ident="glossinfostructure" scheme="isoschematron">
+                            <constraint>
+                                <s:assert context="tei:etym">
+                                    <s:assert test="parent::tei:sense">The parent of 'etym' must be 'sense'</s:assert>                   
+                                </s:assert>
+                            </constraint>
+                        </constraintSpec>
+                        -->
+                        <!-- it should also be allowed to occur on the level of the lemma form in accounting for morphosyntactic and phonological changes -->
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="norm" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/> 
+                            <attDef ident="type" mode="change" usage="rec"/>
+                            <attDef ident="value" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    
+                    <elementSpec ident="gloss" module="core" mode="change">
+                        <classes mode="change">
+                            <memberOf mode="add" key="model.qLike"/>
+                        </classes>
+                        <!--
+                        <constraintSpec ident="glossinfostructure" scheme="isoschematron">
+                            <constraint>
+                                <s:assert context="tei:gloss">
+                                    <s:assert test="parent::tei:etym">The parent of 'gloss' must be
+                                        'etym'</s:assert>
+                                </s:assert>
+                            </constraint>
+                        </constraintSpec>
+                        --><!-- 'gloss' can also occur within 'cit' that is contained within 'etym' -->
+                    </elementSpec>
+                    <elementSpec ident="orth" module="dictionaries" mode="change">
+                        <!-- LMF has @script that seems like a pretty practical and clear way to describe and label an orthographic system; (perhaps a proposal to change TEI could be merited for: 'orth' and 'oVar'?)  -->
+                        <!-- JB: Need to explain in prose (gathering examples (old and new/suggested formatting) our planned use of @type and @notation (in all 'orth' and 'pron' & related elements):
+                            
+                    '@type' (suggested values) transcription, transliteration, standard,...
+                    '@notation' (suggested values) ipa, sampa, arpabet, ...                    
+                    -->
+                        <classes mode="change">
+                            <memberOf mode="add" key="att.datable"/>
+                        </classes>
+                        <constraintSpec ident="orthinfostructure" scheme="isoschematron">
+                            <constraint>
+                                <s:assert context="tei:orth">
+                                    <s:assert test="parent::tei:form">The parent of 'orth' must be
+                                        'form'</s:assert>
+                                </s:assert>
+                            </constraint>
+                        </constraintSpec>
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="extent" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="notation" mode="add">
+                                <datatype>
+                                    <rng:ref name="data.enumerated"/>
+                                </datatype>
+                            </attDef>                           
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="type" mode="change" usage="rec">
+                                <valList>
+                                    <valItem ident="transcription">
+                                        <gloss>transcription</gloss>
+                                    </valItem>
+                                    <valItem ident="transliteration">
+                                        <gloss>transliteration</gloss>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+
+                    <elementSpec ident="oRef" module="dictionaries" mode="change">
+                        <!-- allowed within cit -->
+                        <content>
+                            <rng:ref name="macro.paraContent"/>
+                        </content>
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="datcat" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="next" mode="delete"/>
+                            <attDef ident="norm" mode="delete"/>
+                            <attDef ident="notation" mode="add">
+                                <datatype>
+                                    <rng:ref name="data.enumerated"/>
+                                </datatype>
+                            </attDef>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="type" mode="change" usage="rec">
+                                <valList>
+                                    <valItem ident="transcription">
+                                        <gloss>transcription</gloss>
+                                    </valItem>
+                                    <valItem ident="transliteration">
+                                        <gloss>transliteration</gloss>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+
+
+                    <elementSpec ident="pron" module="dictionaries" mode="change">
+                        <classes mode="change">
+                            <memberOf mode="add" key="att.typed"/>
+                        </classes>
+                        <constraintSpec ident="pvarinfostructure" scheme="isoschematron">
+                            <constraint>
+                                <s:assert context="tei:pron">
+                                    <s:assert test="parent::tei:form">The parent of 'pron' must be
+                                        'form'</s:assert>
+                                </s:assert>
+                            </constraint>
+                        </constraintSpec>
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="datcat" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="extent" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="notation" mode="change" usage="req">
+                                <valList>
+                                    <valItem ident="ipa" mode="add">
+                                        <gloss>international phonetic alphabet</gloss>
+                                    </valItem>
+                                    <valItem ident="xsampa" mode="add">
+                                        <gloss>x sampa</gloss>
+                                    </valItem>
+                                    <valItem ident="zsampa" mode="add">
+                                        <gloss>z sampa</gloss>
+                                    </valItem>
+                                    <valItem ident="arp" mode="add">
+                                        <gloss>arpabet</gloss>
+                                    </valItem>
+                                    <valItem ident="custom" mode="add">
+                                        <gloss>customized phonetic transcription system</gloss>
+                                        <!-- maybe suggest in documentation that if they use this, they change the ODD to the name of theIr system; -->
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                            <attDef ident="xml:base" mode="delete"/>
+                            <attDef ident="xml:space" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="pRef" module="dictionaries" mode="change">
+
+                        <classes mode="change">
+                            <memberOf mode="add" key="att.typed"/>
+                        </classes>
+                        <content>
+                            <rng:ref name="macro.paraContent"/>
+                        </content>
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="evaluate" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="next" mode="delete"/>
+                            <attDef ident="norm" mode="delete"/>
+                            <attDef ident="notation" mode="add">
+                                <datatype>
+                                    <rng:ref name="data.enumerated"/>
+                                </datatype>
+                                <valList>
+                                    <valItem ident="ipa" mode="add">
+                                        <gloss>international phonetic alphabet</gloss>
+                                    </valItem>
+                                    <valItem ident="xsampa" mode="add">
+                                        <gloss>x sampa</gloss>
+                                    </valItem>
+                                    <valItem ident="zsampa" mode="add">
+                                        <gloss>z sampa</gloss>
+                                    </valItem>
+                                    <valItem ident="arp" mode="add">
+                                        <gloss>arpabet</gloss>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="sense" mode="change" module="dictionaries">
+                        <!-- LMF: 'Sense class' element should generally map to it's TEI counterpart -->
+                        <!-- This should be the required place to store any definition, usage, translation, info, regardless of the actual number of senses  -->
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="next" mode="delete"/>
+                            <attDef ident="norm" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="synch" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="usg" mode="change" module="dictionaries">
+                        <!-- TEI Suggested Structure: Ideally, 'usg' should only occur contained within the 'sense' element (better aligns with LMF),
+                        but where it is used to express 'register' (eg. 'formal', 'informal' etc..) it occurs within 'gramGroup');
+                        However, there are some examples in which it is used as an attribute value of 'gram' @type, eg. (gram type="usg"), and the value of this is in prose;
+                        these should be replaced -->
+                        <!-- LMF (C.2.6): parallel info represented in the 'Subject Feild' class with attribute "@label"-->
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="n" mode="delete"/>
+                            <attDef ident="next" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="type" mode="change" usage="rec">
+                                <valList>
+                                    <valItem ident="dom">
+                                        <!-- JB: 'usg' element with @type='dom' can occur 0 or More times consecutively; -->
+                                        <gloss>domain</gloss>
+                                    </valItem>
+                                    <!-- JB: how about adding another value such as: 'conceptual relation' ('relation' or 'rel')
+                                    which could be used to specify info like: meronomy (partOf);  -->
+                                    <valItem ident="prag">
+                                        <!-- JB: 'usg' element with @type='prag' can only occur Once-->
+                                        <gloss>pragmatics</gloss>
+                                    </valItem>
+                                    <valItem ident="reg">
+                                        <!-- JB: 'usg' element with @type='reg' can only occur Once-->
+                                        <!-- JB-LMF: not sure how to express this in LMF -->
+                                        <gloss>register</gloss>
+                                        <!-- VICAV: possible element values in dictionary are: 'informal' and 'formal'  -->
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="colloc" module="dictionaries" mode="change">
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+                    <elementSpec ident="cit" mode="change" module="core">
+                        <!-- allow to occur within 'etym' and 'sense'-->
+                        <!-- change to allow 'pRef' or 'oRef' and 'gloss' to occur instead of 'quote'  -->
+                        <!-- LMF: (no direct equivalent);   -->
+                        <attList>
+                            <attDef ident="type" mode="change" usage="rec">
+                                <valList>
+                                    <valItem ident="example">
+                                        <gloss>example</gloss>
+                                    </valItem>
+                                    <valItem ident="translation">
+                                        <gloss>translation</gloss>
+                                    </valItem>
+                                    <valItem ident="literalTranslation">
+                                        <gloss>literal translation</gloss>
+
+                                    </valItem>
+                                    <valItem ident="collocation">
+                                        <gloss>collocation</gloss>
+                                    </valItem>
+                                    <valItem ident="encyclopedic">
+                                        <gloss>enclyclopedic information</gloss>
+                                    </valItem>
+                                </valList>
+                            </attDef>
+                        </attList>
+                        <!-- JB: is this the best way to represent this? Perhaps use: '@type="translation" subc="literal"'; either way,
+                            literal translation implies a more direct and specific relationship between the linguistic content of entry 
+                            and translation languages; could be defined through specific encoding. If this is done, 'xml:space' and 'pc'/'c' should be utilized. -->
+                        <!--LMF: this is stored within the 'Sense' class and is part of the LMF class: 'Equivalent' has attributes: @language
+                            ; and the attribute cooresponding to the form representation of the item eg; @writtenForm -->
+                    </elementSpec>
+                    <!-- 
+                    <elementSpec ident="quote" mode="change" module="core">
+                        
+                    </elementSpec>
+                     -->
+                    <!-- JB: Do I need to specify this explicitly since it is already part of the structure of the TEI specs? -->
+                    <!-- JB: the value contents of 'quote' are necessarily governed by the value of the @type in the parent element 'cit'; -->
+
+                    <!-- In dictionaries, 'seg' recommended/allowed to occurr only within 'quote' in order to be able to keep format from any utterance or written sources that are also encoded in TEI   -->
+
+                    <elementSpec ident="seg" module="linking" mode="change">
+                        <attList>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="met" mode="delete"/>
+                            <attDef ident="real" mode="delete"/>
+                            <attDef ident="rhyme" mode="delete"/>
+                            <attDef ident="notation" mode="add">
+                                <datatype>
+                                    <rng:ref name="data.enumerated"/>
+                                </datatype>
+                            </attDef>
+                        </attList>
+                    </elementSpec> 
+                    <elementSpec ident="lang" module="dictionaries" mode="change">
+                        <classes mode="change"><!-- change to also allow within 'cit' -->
+                            <memberOf mode="add" key="model.qLike"/>
+                        </classes>
+                    </elementSpec>
+
+                    <!--
+                    <elementSpec ident="spanGrp" module="analysis" mode="change"> </elementSpec>
+                    <elementSpec ident="span" module="analysis" mode="change"> </elementSpec>
+                    -->
+                    <!-- 
+                   <elementSpec ident="subc" module="dictionaries" mode="change">
+                       <attList>
+                           <attDef ident="change" mode="delete"/>
+                           <attDef ident="copyOf" mode="delete"/>
+                           <attDef ident="corresp" mode="delete"/>
+                           <attDef ident="exclude" mode="delete"/>
+                           <attDef ident="facs" mode="delete"/>
+                           <attDef ident="location" mode="delete"/>
+                           <attDef ident="mergedIn" mode="delete"/>
+                           <attDef ident="n" mode="delete"/>
+                           <attDef ident="next" mode="delete"/>
+                           <attDef ident="orig" mode="delete"/>
+                           <attDef ident="prev" mode="delete"/>
+                           <attDef ident="rend" mode="delete"/>
+                           <attDef ident="rendition" mode="delete"/>
+                           <attDef ident="sameAs" mode="delete"/>
+                           <attDef ident="select" mode="delete"/>
+                           <attDef ident="split" mode="delete"/>
+                           <attDef ident="style" mode="delete"/>
+                           <attDef ident="synch" mode="delete"/>
+                           <attDef ident="value" mode="delete"/>
+                           <attDef ident="xml:base" mode="delete"/>
+                       </attList>
+                   </elementSpec>
+                    -->
+
+                    <elementSpec ident="ref" module="core" mode="change">
+
+                        <attList>
+                            <attDef ident="change" mode="delete"/>
+                            <attDef ident="copyOf" mode="delete"/>
+                            <attDef ident="exclude" mode="delete"/>
+                            <attDef ident="expand" mode="delete"/>
+                            <attDef ident="facs" mode="delete"/>
+                            <attDef ident="mergedIn" mode="delete"/>
+                            <attDef ident="next" mode="delete"/>
+                            <attDef ident="norm" mode="delete"/>
+                            <attDef ident="opt" mode="delete"/>
+                            <attDef ident="orig" mode="delete"/>
+                            <attDef ident="prev" mode="delete"/>
+                            <attDef ident="rend" mode="delete"/>
+                            <attDef ident="rendition" mode="delete"/>
+                            <attDef ident="sameAs" mode="delete"/>
+                            <attDef ident="select" mode="delete"/>
+                            <attDef ident="split" mode="delete"/>
+                            <attDef ident="style" mode="delete"/>
+                        </attList>
+                    </elementSpec>
+
+                    <!-- 
+                <elementSpec ident="ptr" module="core">
+                    
+                </elementSpec>
+                -->
+                </schemaSpec>
+            </div>
+        </body>
+    </text>
+</TEI>

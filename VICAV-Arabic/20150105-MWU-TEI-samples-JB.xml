@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Title</title>
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc>
+            <p>Information about the source</p>
+         </sourceDesc>
+      </fileDesc>
+  </teiHeader>
+  <text>
+      <body>
+       <p><num>1)</num> This first example is a clear case of a an multi word unit being classifiable as a '<val>compound</val>';</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+         
+         <entry xml:id="maktab_3" n="1069">
+            <form type="lemma">
+               <form type="compound">
+                  <orth xml:lang="ar-arz-x-cairo-vicavTrans">maktab siyāḥa</orth>
+                  <orth xml:lang="ar-arz-x-cairo-arabic">مكتب سياحة</orth>
+                  <gramGrp><!-- added 'gramGrp' with assumed pos value as noun (which can be further specified or changed if desired)-->
+                     <gram type="pos">noun</gram>
+                  </gramGrp>
+               </form>
+            </form>           
+            <sense>
+               <cit type="translation" xml:lang="en">
+                  <quote>travel agency</quote>
+               </cit>
+               
+               <cit type="translation" xml:lang="de">
+                  <quote>Reisebüro</quote>
+               </cit>
+            </sense>
+            ...
+         </entry>
+      </egXML>
+      </body>
+  </text>
+</TEI>

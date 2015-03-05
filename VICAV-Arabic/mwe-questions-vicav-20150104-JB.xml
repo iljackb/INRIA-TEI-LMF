@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="application/xml"
+	schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title>Examples VICAV Etymology from multi word units and compounds</title>         
+         </titleStmt>
+         <publicationStmt>
+            <p>Publication Information</p>
+         </publicationStmt>
+         <sourceDesc><!-- JB: Ontolex link: each equivalent instances of ''Lexicon'; Ontolex:  http://www.w3.org/ns/lemon/ontolex/Lexicon -->
+            <bibl xml:id="egyptDict">A Machine-readable Dictionary of Egyptian Arabic</bibl>
+            <bibl xml:id="damascDict">A Digital Dictionary of Damascus Arabic</bibl>
+         </sourceDesc>
+      </fileDesc>
+     <revisionDesc>
+        <change><date>2015-02-16</date><name>Jack</name> I have updated the examples fomatting according to our discussion.. where there are still ambiguous issues, I make note using comments;</change>
+     </revisionDesc>
+  </teiHeader>
+  <text>
+      <body>
+         <div>
+            <label>Examples</label>
+           <p> This is a clear 'compound', as it would be in the English, or French translation, I think also German:         
+            <num>1) </num>
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                 <entry xml:id="maktab_3" n="1069" type="compound">
+                    <form type="lemma">
+                       <orth type="transliterated" notation="ar-apc-x-damascus-vicavTrans">maktab siyāḥa</orth>
+                       <gramGrp>
+                          <pos>noun</pos>
+                       </gramGrp>           
+                    </form>
+                    <sense>
+                       <cit type="translation" xml:lang="en">
+                          <quote>travel agency</quote>
+                       </cit>           
+                       <cit type="translation" xml:lang="fr">
+                          <quote>agence de voyage</quote>
+                       </cit>
+                       <cit type="translation" xml:lang="de">
+                          <quote>Reisebüro</quote>
+                       </cit>
+                    </sense>
+                    <etym type="compounding"><!-- I added this -->
+                       <cit type="etymon">
+                          <oRef corresp="#maktab_0">maktab</oRef><!-- add @notation to match <orth> and to distinguish in any automatic processes -->
+                          <gloss xml:lang="de">Büro</gloss>
+                          <gramGrp>
+                             <pos>noun</pos>
+                          </gramGrp>   
+                       </cit>
+                       <cit type="etymon">
+                          <oRef corresp="#siyaha_0" notation="ar-apc-x-damascus-vicavTrans">siyāḥa</oRef><!-- add @notation -->
+                          <gloss xml:lang="de">Tourismus</gloss>
+                          <gramGrp>
+                             <pos>noun</pos>
+                          </gramGrp>   
+                       </cit>
+                    </etym>
+                 </entry>   
+              </egXML>
+              
+              <num>2)</num> 
+              <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                 <entry xml:id="mafish_0" n="1059">
+                    <form type="lemma">
+                       <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">ma-fī-š</orth>
+                       <orth type="standard" notation="ar-arz-x-cairo-arabic">مفيش</orth>
+                       <gramGrp>
+                          <pos>existentialMarker</pos>
+<!-- As I mentioned, I personally prefer the <gram type="pos"> but Laurent insists on using the elements where they exist so I have changed it (you can obviously decide whether or not to adopt the recommendations that you like)  -->
+                       </gramGrp>
+                    </form>
+                    <sense>
+                       <cit type="translation" xml:lang="en">
+                          <quote>there is no</quote>
+                       </cit>
+                       <cit type="translation" xml:lang="de">
+                          <quote>es gibt nicht</quote>
+                       </cit>
+                       ...
+                    </sense>
+                    <etym type="grammaticalization">
+                       <cit type="etymon"><!-- (note) @corresp should point to the entry of circumfix "ma š" as entry (I couldn't find it)-->
+                          <oRef corresp="" notation="ar-arz-x-cairo-vicavTrans">ma š</oRef> 
+                          <!--  šāy' 'thing' -->
+                          <gramGrp>
+                             <pos>negation</pos>
+                             <!-- circumfix (I don't know if you want to label it in the original entry, but I think doing so could be good for automatic processing) -->
+                          </gramGrp>
+                       </cit>
+                       <cit type="etymon">
+                          <oRef notation="ar-arz-x-cairo-vicavTrans">fī</oRef><!-- no corresponding entry right?-->
+                          <gramGrp>
+                             <pos>prep</pos>
+                          </gramGrp>
+                       </cit>
+                    </etym>
+                    ....
+                 </entry>
+              </egXML>
+           </p>
+            <p>            
+               <num>3)</num>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <!-- I'm sorry but this may have been one that you insisted on MultiWordUnit over phrase but I may not have written it down -->              
+                  <entry xml:id="yalla_0" n="804" type="phrase">
+                     <form type="lemma">
+                        <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">yaḷḷa bīna!</orth>
+                        <orth type="standard" notation="ar-arz-x-cairo-arabic">الة بين!</orth>
+                        <!-- Just an example of how you may include grammatical info for this if you wanted..
+                           <gramGrp>
+                              <gram>hortative phrase</gram>
+                           </gramGrp>
+                        -->
+                     </form>
+                     <sense>
+                        <cit type="translation" xml:lang="en">
+                           <quote>Let’s go!</quote>
+                        </cit>
+                        <cit type="translation" xml:lang="de">
+                           <quote>Gehen wir!</quote>
+                        </cit>
+                     </sense>
+                     <etym>
+                        <cit type="etymon">
+                           <oRef corresp="#yaḷḷa_001" notation="ar-arz-x-cairo-vicavTrans">yaḷḷa</oRef>
+                           <gramGrp>
+                              <gram>particle</gram><!-- (as 'particle' isn't really a 'grammatical' feature, I'm working on figuring out better element label)-->
+                              <gloss xml:lang="en">Get on! Move!</gloss>
+                           </gramGrp>
+                        </cit>
+                        <cit type="etymon">
+                           <oRef corresp="#bina_0">bīna</oRef>
+                        </cit>
+                     </etym>
+                  </entry>
+               </egXML>
+            </p>
+             <p>    
+                <num>4)</num>                
+                <egXML xmlns="http://www.tei-c.org/ns/Examples" source="#egyptDict">
+                   <entry xml:id="bina_0" n="803" type="multiWordUnit"> <!-- this one you did insist on MWE right?-->
+                      <form type="lemma"><!-- moved MWE to above so that the main 'form' can be "lemma" -->
+                         <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">bī-na</orth>
+                         <orth type="standard" notation="ar-arz-x-cairo-arabic">بنا</orth>
+                      </form>   
+                      <sense>
+                         <cit type="translation" xml:lang="en">
+                            <quote>with us</quote>
+                         </cit>
+                         <cit type="translation" xml:lang="de">
+                            <quote>mit uns</quote>
+                         </cit>
+                      </sense>
+                      <etym>
+                         <cit type="etymon">
+                            <oRef notation="ar-arz-x-cairo-vicavTrans">bī</oRef>
+                            <gramGrp>preposition</gramGrp>
+                         </cit>
+                         <cit type="etymon">
+                            <oRef notation="ar-arz-x-cairo-vicavTrans">na</oRef>
+                            <gramGrp>
+                               <pos>pronominalSuffix</pos>
+                            </gramGrp>
+                            <!-- gloss -->
+                         </cit>
+                      </etym>
+                   </entry>
+                </egXML>
+             </p>
+            <p>    
+              <num>5)</num>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <entry numID="776" xml:id="fi_0">
+                     <form type="lemma">
+                        <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">fi baḥr</orth>
+                        <orth type="standard" notation="ar-arz-x-cairo-arabic">فى بحر</orth>
+                     </form>
+                     <sense>
+                        <cit type="translation" xml:lang="en">
+                           <quote>within</quote>
+                        </cit>
+                        <cit type="translation" xml:lang="de">
+                           <quote>innerhalb von</quote>
+                        </cit>
+                     </sense>
+                     <etym type="grammaticalization">
+                        <cit type="etymon">
+                           <oRef corresp="" notation="ar-arz-x-cairo-vicavTrans">fi</oRef>
+                           <gramGrp>preposition</gramGrp>
+                        </cit>
+                        <cit type="etymon">
+                           <oRef corresp="" notation="ar-arz-x-cairo-vicavTrans">baḥr</oRef>
+                           <gramGrp>
+                              <pos>noun</pos>
+                           </gramGrp>
+                           <!-- gloss -->
+                        </cit>
+                     </etym>
+                  </entry>
+               </egXML>
+            </p>
+            <p>
+               <num>6)</num>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  
+                  <entry xml:id="entry_000052" n="822" type="multiWordUnit">
+                     <form type="lemma">
+                        <orth type="transliterated" notation="ar-apc-x-damascus-vicavTrans">*ʔaškāl ʔalwān</orth><!-- Damascus -->
+                     <gramGrp>
+                        <gram type="root">škl lwn</gram><!-- note:('@xml:lang' removed) wc3 best practice advises to only use @xml:lang for actual languages, we are still deciding with what to replace it in this context.. -->
+                     </gramGrp>
+                     </form>
+                     <sense>
+                        <cit type="translation" lang="en">
+                           <quote>various types (of things)</quote>
+                        </cit>  
+                        <cit type="translation" xml:lang="de">
+                           <quote>viele verschiedene (Dinge)</quote>
+                        </cit>
+                        <cit type="translation" xml:lang="es">
+                           <quote>varios tipos (de cosas)</quote>
+                        </cit>
+                     </sense>
+                     <etym>
+                        <cit type="etymon">
+                           <oRef corresp="" notation="ar-arz-x-cairo-vicavTrans">*ʔaškāl</oRef><!-- not sure of singular -->
+                           <gramGrp>
+                              <pos>noun</pos>
+                           </gramGrp>
+                           <gloss>forms</gloss>
+                        </cit>
+                        <gramGrp>
+                           <oRef corresp="" notation="ar-arz-x-cairo-vicavTrans">ʔalwān</oRef><!-- not sure of singular -->
+                           <pos>noun</pos>
+                        </gramGrp>
+                        <gloss>colors</gloss>
+                     </etym>
+                  ....
+                  </entry>
+               </egXML>
+            </p>
+            <p>
+               <num>7)</num>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <entry xml:id="entry_000404" n="1174" type="multiWordUnit">
+                     <form type="lemma">
+                        <orth type="transliterated" notation="ar-apc-x-damascus-vicavTrans">b-šakᵊl ʕāmm</orth><!-- Damascus -->
+                        <gramGrp>
+                           <gram type="root">škl ʕmm</gram>
+                        </gramGrp>
+                     </form>
+                     <sense>
+                        <cit type="translation" xml:lang="en">
+                           <quote>usually, normally</quote>
+                        </cit>
+                        
+                        <cit type="translation" xml:lang="de">
+                           <quote>normalerweise, üblicherweise</quote>
+                        </cit>
+                        
+                        <cit type="translation" xml:lang="es">
+                           <quote>en gerenal, normalmente</quote>
+                        </cit>
+                     </sense>
+                     <etym>
+                        <cit type="etymon">
+                           <oRef corresp="#b_001" notation="ar-arz-x-cairo-vicavTrans">b</oRef><!-- not sure of singular -->
+                           <gramGrp>
+                              <pos>preposition</pos>
+                           </gramGrp>
+                           <gloss xml:lang="en">in</gloss>
+                        </cit>
+                        <cit type="etymon">
+                           <oRef corresp="" notation="ar-arz-x-cairo-vicavTrans">šakᵊl</oRef><!-- not sure of singular -->                  
+                           <gramGrp>
+                              <pos>noun</pos>
+                           </gramGrp>
+                        </cit>
+                        <cit type="etymon">
+                           <oRef corresp="">ʕāmm</oRef><!-- not sure of singular --><!-- @corresp left empty because I couldn't find the entries .. -->
+                           <gramGrp>
+                              <pos>adjective</pos>
+                           </gramGrp>
+                           <gloss xml:lang="en">general</gloss>
+                        </cit>
+                     </etym>
+                     ...
+                  </entry>
+               </egXML>
+            </p>
+            <p><num>8)</num>
+               <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                  <entry xml:id="liwahd_0" n="1049" type="multiWordUnit"><!-- moved MWE to entry so that 'form' can be labeled "lemma" -->
+                     <form type="lemma">
+                        <orth type="transliterated" notation="ar-arz-x-cairo-vicavTrans">li-waḥd</orth>
+                        <orth type="standard" notation="ar-arz-x-cairo-arabic">ل وحد</orth>
+                        <!-- 
+                        <gramGrp>
+                         this one is tricky to classify in any language I think, but if you do, the gramGrp would ideally be here (according to our system)
+                        </gramGrp>   
+                        --> 
+                     </form>
+                     <sense>
+                        <usg xml:lang="de">followed by personal suffixes</usg>
+                        
+                        <cit type="translation" xml:lang="en">
+                           <quote>alone</quote>
+                        </cit>        
+                        <cit type="translation" xml:lang="de">
+                           <quote>alleine</quote>
+                        </cit>
+                     </sense>
+                     <etym>
+                        <cit type="etymon">
+                           <oRef>li</oRef>
+                           <gramGrp>
+                              <pos>preposition</pos>
+                           </gramGrp>
+                           <gloss xml:lang="en">for</gloss>
+                        </cit>
+                        <cit type="etymon">
+                           <oRef>waḥd</oRef>
+                           <gramGrp>
+                              <pos>pronoun</pos>
+                           </gramGrp>
+                           <gloss xml:lang="en">self</gloss>
+                        </cit>
+                     </etym>
+                     ....
+                  </entry>
+               </egXML>
+            </p>
+         </div>
+      </body>
+  </text>
+</TEI>

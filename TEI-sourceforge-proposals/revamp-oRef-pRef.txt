@@ -1,0 +1,89 @@
+Depricate <oVar> & <pVar> and Revamp <oRef> & <pRef>
+ (INTRO CONTENT)
+ 
+
+<oVar> & <pVar>
+
+ - Eliminate these two elements as their semantics do not correspond with their functionality (variations of <orth> & <pron>); Specifically, their de facto uses by community are more referential in nature rather than containers of variation of <orth> & <pron>, as their names would entail; 
+ 
+ - Additionally, the attribute values in the TEI reference pages for these two elements which should theoretically be used in a parallel manner, themselves do not correspond, with the sample values for <oVar @type> for some reason being given as the following:
+	pt (past tense)
+	pp (past participle)
+	prp (present participle)
+	f (feminine)
+	pl (plural)
+
+ There are many other ways to refer to a variant form of a specific grammatical feature in a language, given also that <orth> does not typically mark this information within it’s own @type attribute, there is little reason why <oVar> should.
+
+  (GIVEN THAT WE ARE IN THE PROCESS OF DEVELOPING RECOMMENDATION ON HOW TO DO THIS, HOW SHOULD I REFER TO HOW THIS CAN BE DONE IN THIS PROPOSAL? EG. IF I GIVE EXAMPLE FROM OUR WORK, IT MAY NOT BE THE )
+
+
+
+<oRef> and <pRef>:
+
+- Allow text to be contained in addition to keeping ability to remain empty;
+ 
+- Add to att.typed no restrictions to values of @type;
+
+- Add att.lexicographic to bring in line with and enable full correspondence with linguistic/lexicographic usage of <orth> and <pron>;
+
+- Add @notation in <pRef> in order to bring it in line with <pron>;
+     (useful in cases where there are more than one notations being represented in <pron>)
+
+- In the context of a TEI dictionary, allow these elements to point to any dictionary entry not just the current entry’s head item;
+ this change would be useful for etymology in which there exist a separate entry whose <orth> or <pron> form makes up part of the 
+ etymology of another entry:
+
+(Note: in sample dictionary, there exist separate entries that have xml:id’s “bean” and “body-face”)
+
+ (HOW DO WE EXPLAIN THE NEED TO CHANGE THE DIFFERENCE BETWEEN THE PROPOSED USE OF <oRef> & <pRef> IN ETYM AND THE USE OF <seg @corresp> IN <orth> & <pron>?)
+
+ (Example 1) Use etymological reference of compound forms whose components are found in existing entries (using attribute pointers):
+
+            <entry xml:id="body-face-eye">
+               <form type="compound">
+                  <form type="lemma">
+                     <orth><seg corresp="#bean">ntuchi</seg><seg corresp="#body-face">nuu</seg></orth><!—-DECIDE allow/instead use <oRef> in here? -—>
+                     <pron notation="ipa"><seg corresp="#bean">ndùʧí</seg><seg corresp="#body-face">nũ̀ũ̀</seg></pron><!—-DECIDE allow/instead use <pRef notation=“ipa”> in here? -—>
+                     <pron notation="zsampa"><seg corresp="#bean">d_n\ u_L (tS) i_R</seg> <seg corresp="#body-face">n u:_n_F</seg></pron><!—-DECIDE allow/instead use <pRef notation=“zsampa”> in here? -—>
+                  </form>
+               </form>
+               <sense>
+                  ….
+                  <etym>
+                     <ref target="#bean">[<pRef corresp="#bean" notation="ipa">ndùʧí</pRef>] '<gloss>bean</gloss>'</ref><!—- INCLUDE @xml:lang=“eng” in <gloss>? -—>
+                     <ref target="#body-face">[<pRef corresp="#bean" notation="ipa">nũ̀ũ̀</pRef>] '<gloss>face</gloss>'</ref>
+                  </etym>
+                  <cit type="translation" xml:lang="eng">
+                     <quote rend="italic">eye, eyes</quote>
+                  </cit>
+               </sense>
+            </entry>
+
+ Below shows an alternate encoding of the <etym> element of the same as above, which instead uses <oRef>;
+          ….
+                  <etym>
+                     <ref target="#bean">[<oRef corresp="#bean" notation="ipa">ndùʧí</pRef>] '<gloss>bean</gloss>'</ref>
+                     <ref target="#body-face">[<oRef corresp="#bean" notation="ipa">nũ̀ũ̀</pRef>] '<gloss>face</gloss>'</ref>
+                  </etym>
+          …..
+
+(Example 2) Use in etymological reference of loanword forms for which there is not an existing entry (no pointers);
+
+            <entry xml:id="cheese">
+               <form type="lemma">              
+                  <orth>keso</orth>
+                  <pron notation="ipa">ké.so</pron>
+                  <pron notation="zsampa">k e_H s o_M</pron>
+               </form>
+               <sense>
+                  ….
+                  <etym>Loanword: <lang>Spanish</lang>: [<pRef xml:lang="esp">'keso</pRef>]</etym><lb/>
+
+                  <cit type="translation" xml:lang="eng">
+                     <quote>cheese</quote>
+                  </cit>
+               </sense>
+            </entry>
+
+(Q: DO WE NEED ANY MORE/DIFFERENT KIND OF EXAMPLE ENTRIES?)
